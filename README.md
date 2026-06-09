@@ -1,5 +1,6 @@
 # AutoPet-3.3.5
 A very small and lightweight AddOn that automatically summons a chosen or random  companion pet. Made this AddOn since they never get re-summoned after taxi, dying, entering instance etc. Enjoy your favourite companion <3
+
 Type /autopet to configure.
 
 
