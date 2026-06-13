@@ -30,7 +30,7 @@ local function DB(key, default)
 end
 
 -- Defaults on first load
-DB("petName",    "Orange Tabby Cat")
+DB("petName",    "")
 DB("randomMode", false)
 DB("enabled",    true)
 
@@ -55,6 +55,8 @@ local function HasActivePet(pets)
     return false
 end
 
+local lastErrorTime = 0
+
 local function SummonPet()
     if not AutoPetDB.enabled then return end
     if InCombatLockdown() then return end
@@ -70,14 +72,20 @@ local function SummonPet()
     else
         -- Find the named pet
         local petName = AutoPetDB.petName
+        if not petName or petName == "" then return end  -- no pet selected yet, stay silent
         for _, p in ipairs(pets) do
             if p.name == petName then
                 CallCompanion("CRITTER", p.index)
                 return
             end
         end
-        print("|cffff9900AutoPet:|r Could not find pet: |cffffffff" .. petName .. "|r")
-        print("|cffff9900AutoPet:|r Use |cffffffff/autopet|r to change the pet name.")
+        -- Only print the error once every 10 seconds to avoid spam
+        local now = GetTime()
+        if now - lastErrorTime > 10 then
+            lastErrorTime = now
+            print("|cffff9900AutoPet:|r Could not find pet: |cffffffff" .. petName .. "|r")
+            print("|cffff9900AutoPet:|r Use |cffffffff/autopet|r to change the pet name.")
+        end
     end
 end
 
