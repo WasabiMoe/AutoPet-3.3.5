@@ -3,6 +3,6 @@
 ## Notes: Automatically summons your chosen companion pet. Type /autopet to configure.
 ## Author: WasabiMoe
 ## Version: 1.1
-## SavedVariables: AutoPetDB
+## SavedVariablesPerCharacter: AutoPetDB
 
 AutoPet.lua
